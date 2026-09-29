@@ -1,0 +1,12 @@
+id	year	award	name	department	title	summary	tags	profileUrl	pdfUrl	order	published
+2026-president-01	2026	총장상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력	AI,연구동향			1	FALSE
+2026-grand-01	2026	최우수상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				1	FALSE
+2026-grand-02	2026	최우수상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				2	FALSE
+2026-excellence-01	2026	우수상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				1	FALSE
+2026-excellence-02	2026	우수상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				2	FALSE
+2026-excellence-03	2026	우수상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				3	FALSE
+2026-merit-01	2026	장려상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				1	FALSE
+2026-merit-02	2026	장려상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				2	FALSE
+2026-merit-03	2026	장려상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				3	FALSE
+2026-merit-04	2026	장려상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				4	FALSE
+2026-merit-05	2026	장려상	공개할 팀명 입력	소속 입력	작품 제목 입력	작품 소개 입력				5	FALSE

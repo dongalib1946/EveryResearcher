@@ -1,0 +1,12 @@
+import { mkdir, copyFile, cp, rm } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const project = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+if (path.resolve(process.cwd()) !== project) throw new Error('프로젝트 폴더에서 실행하세요.');
+const output = path.resolve(project, 'dist');
+if (path.dirname(output) !== project || path.basename(output) !== 'dist') throw new Error('잘못된 출력 경로');
+await rm(output, { recursive: true, force: true });
+await mkdir('dist', { recursive: true });
+for (const name of ['index.html', 'archive.html', 'about.html', '404.html', '.nojekyll']) await copyFile(name, `dist/${name}`);
+await cp('assets', 'dist/assets', { recursive: true });
+console.log('Static site built in dist/');

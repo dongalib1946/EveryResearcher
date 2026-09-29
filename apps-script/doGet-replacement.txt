@@ -1,0 +1,14 @@
+// 기존 파일의 doGet() 함수 하나만 아래로 교체합니다.
+// 새 .gs 파일에 두 번째 doGet을 만들지 마세요.
+// 먼저 ResearchArchive.gs를 같은 프로젝트에 추가하세요.
+function doGet(e) {
+  const archiveResponse = researcherArchiveRoute_(e);
+  if (archiveResponse !== null) return archiveResponse;
+
+  return HtmlService
+    .createTemplateFromFile("Index")
+    .evaluate()
+    .setTitle(CONFIG.EVENT_TITLE + " 추첨")
+    .addMetaTag("viewport", "width=device-width, initial-scale=1")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
