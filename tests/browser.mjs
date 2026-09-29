@@ -6,6 +6,7 @@ await mkdir('test-results', { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const errors = [];
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+await page.route('https://script.google.com/macros/s/**', route => route.fulfill({ json: { ok: true, winners: [] } }));
 page.on('pageerror', error => errors.push(error.message));
 await page.goto(base); await page.waitForFunction(() => document.querySelectorAll('.winner-card').length === 11);
 await page.evaluate(() => document.fonts.ready);
@@ -69,6 +70,7 @@ for (const width of [390, 768, 1440]) {
 console.log('PASS responsive layouts');
 // Opening film once, then an actual native loop; only the opening can auto-scroll.
 const motion = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+await motion.route('https://script.google.com/macros/s/**', route => route.fulfill({ json: { ok: true, winners: [] } }));
 await motion.goto(base);
 await motion.waitForFunction(() => document.querySelector('.hero-video-opening').currentTime > .5);
 assert.match(await motion.locator('.hero-video-opening').getAttribute('src'), /opening-film.mp4/);

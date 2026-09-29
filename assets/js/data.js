@@ -65,12 +65,20 @@ export function loadWinners({ refresh = false } = {}) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), CONFIG.requestTimeout);
     try {
-      const url = CONFIG.apiUrl || new URL('../data/demo.json', import.meta.url).href;
-      const res = await fetch(url, { signal: controller.signal, redirect: 'follow', credentials: 'omit', cache: 'no-store' });
-      if (!res.ok) throw new Error('수상작 정보를 불러오지 못했습니다.');
-      const payload = await res.json();
-      if (!payload.ok) throw new Error('수상작 데이터 연결을 확인해 주세요.');
-      return { winners: normalizeRows(payload.winners), demo: !CONFIG.apiUrl && CONFIG.demoMode };
+      const demoUrl = new URL('../data/demo.json', import.meta.url).href;
+      const request = async url => {
+        const res = await fetch(url, { signal: controller.signal, redirect: 'follow', credentials: 'omit', cache: 'no-store' });
+        if (!res.ok) throw new Error('수상작 정보를 불러오지 못했습니다.');
+        const payload = await res.json();
+        if (!payload.ok || !Array.isArray(payload.winners)) throw new Error('수상작 데이터 연결을 확인해 주세요.');
+        return payload;
+      };
+      const payload = await request(CONFIG.apiUrl || demoUrl);
+      // Keep the explicitly requested preview only while a healthy API has no public rows.
+      // API errors are never replaced with sample winners, and samples never mix with real rows.
+      const preview = !CONFIG.apiUrl || (CONFIG.demoMode && payload.winners.length === 0);
+      const selected = CONFIG.apiUrl && preview ? await request(demoUrl) : payload;
+      return { winners: normalizeRows(selected.winners), demo: preview };
     } catch (error) {
       pending = null;
       throw new Error(error.name === 'AbortError' ? '연결 시간이 길어지고 있습니다. 잠시 후 다시 시도해 주세요.' : '수상작 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
