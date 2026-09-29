@@ -10,15 +10,16 @@ export function initIntro() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = Boolean(navigator.connection?.saveData);
   let active = opening, phase = 'opening', interacted = false, pausedByUser = false;
-  let loadingTimer, resumeOnVisible = false;
+  let loadingTimer, spinnerTimer, resumeOnVisible = false;
   hero.dataset.videoPhase = phase;
 
   ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(type => {
     window.addEventListener(type, () => { interacted = true; }, { once: true, passive: true });
   });
-  const ready = () => { clearTimeout(loadingTimer); hero.classList.add('video-ready'); toggle.hidden = false; };
+  const ready = () => { clearTimeout(loadingTimer); clearTimeout(spinnerTimer); hero.classList.add('video-ready'); toggle.hidden = false; };
   const loading = () => {
-    clearTimeout(loadingTimer); hero.classList.remove('video-ready');
+    clearTimeout(loadingTimer); clearTimeout(spinnerTimer);
+    spinnerTimer = setTimeout(() => hero.classList.remove('video-ready'), 350);
     status.textContent = '영상을 불러오고 있습니다';
     loadingTimer = setTimeout(() => { ready(); status.textContent = '영상 연결이 지연되고 있습니다'; }, 8000);
   };
@@ -36,7 +37,7 @@ export function initIntro() {
   const showAmbient = () => {
     if (phase === 'ambient') return;
     phase = 'ambient'; hero.dataset.videoPhase = phase;
-    opening.pause(); active = ambient; progress.style.width = '100%';
+    active = ambient; progress.style.width = '100%';
     // Retain the opening's last frame until the loop is actually playing.
     if (document.hidden) { resumeOnVisible = !pausedByUser; return; }
     playActive();
@@ -49,9 +50,10 @@ export function initIntro() {
   });
   opening.addEventListener('timeupdate', () => {
     if (phase === 'opening' && opening.duration) progress.style.width = `${opening.currentTime / opening.duration * 100}%`;
-    if (!saveData && opening.currentTime > opening.duration - 3 && ambient.preload === 'none') {
+    if (phase === 'opening' && !saveData && ambient.preload === 'none') {
       ambient.preload = 'auto'; ambient.load();
     }
+    if (phase === 'opening' && !opening.paused && opening.duration - opening.currentTime < 1.2 && ambient.readyState >= 3) showAmbient();
   });
   [opening, ambient].forEach(video => {
     video.addEventListener('playing', () => {
@@ -72,13 +74,13 @@ export function initIntro() {
   toggle.onclick = () => {
     interacted = true;
     if (!active.paused) {
-      pausedByUser = true; resumeOnVisible = false; active.pause(); ready(); toggle.textContent = '영상 재생 ↗';
+      pausedByUser = true; resumeOnVisible = false; opening.pause(); ambient.pause(); ready(); toggle.textContent = '영상 재생 ↗';
     } else { pausedByUser = false; playActive(); }
   };
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       resumeOnVisible = !active.paused && !pausedByUser;
-      active.pause(); ready(); toggle.textContent = '영상 재생 ↗';
+      opening.pause(); ambient.pause(); ready(); toggle.textContent = '영상 재생 ↗';
     } else if (resumeOnVisible && !pausedByUser) { resumeOnVisible = false; playActive(); }
   });
   if (reduced || saveData) {

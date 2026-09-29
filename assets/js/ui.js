@@ -10,7 +10,25 @@ export function el(tag, className, text) {
 export function initShell(current) {
   const header = document.querySelector('[data-header]');
   header.innerHTML = `<a class="brand" href="./index.html" aria-label="동아대학교 도서관, 전시 홈"><span class="library-symbol"><img src="./assets/images/library-logo.png" alt=""></span><span>동아대학교 도서관<small>DONG-A UNIVERSITY LIBRARY</small></span></a><nav aria-label="주 메뉴"><a href="./index.html" ${current === 'home' ? 'aria-current="page"' : ''}>수상작 전시</a><a href="./archive.html" ${current === 'archive' ? 'aria-current="page"' : ''}>전체 아카이브</a><a href="./about.html" ${current === 'about' ? 'aria-current="page"' : ''}>대회 소개</a></nav><span class="anniversary"><img src="./assets/images/anniversary-80.png" alt="동아대학교 개교 80주년"></span>`;
-  document.querySelector('[data-footer]').innerHTML = `<div class="footer-top"><a class="footer-title" href="./index.html">데이터를 읽고,<br>연구의 흐름을 발견하다.<span>↗</span></a><div><p>누구나 연구자 경진대회</p><p>동아대학교 도서관 · 동아대학교 앵커사업추진단</p><a href="./about.html">대회 소개 보기 ↗</a></div></div><div class="footer-bottom"><span>© 2026 DONG-A UNIVERSITY LIBRARY</span><span>누구나 연구자 · RESEARCH ARCHIVE</span><a href="#main">맨 위로 ↑</a></div>`;
+  document.querySelector('[data-footer]').innerHTML = `<div class="footer-top"><a class="footer-title" href="./index.html">데이터를 읽고,<br>연구의 흐름을 발견하다.<span>↗</span></a><div><p>누구나 연구자 경진대회</p><p>동아대학교 도서관 · 동아대학교 앵커사업추진단</p><a href="./about.html">대회 소개 보기 ↗</a></div></div>
+    <section class="footer-contacts" aria-labelledby="contacts-title"><h2 id="contacts-title">담당자</h2><div class="contact-grid">
+      <address><h3>김세훈</h3><p>각종 문의</p><a href="tel:0512006272">(051)200-6272</a><a href="mailto:sehkim@dau.ac.kr">sehkim@dau.ac.kr</a></address>
+      <address><h3>서지현</h3><p>각종 문의</p><a href="tel:0512006275">(051)200-6275</a><a href="mailto:sjh7978@dau.ac.kr">sjh7978@dau.ac.kr</a></address>
+      <address><h3>석재우</h3><p>각종 문의 · 홈페이지 관련 문의 · 아카이빙 문의</p><a href="tel:0512006275">(051)200-6275</a><a href="mailto:nicks3610@dau.ac.kr">nicks3610@dau.ac.kr</a></address>
+    </div></section><div class="footer-bottom"><span>© 2026 DONG-A UNIVERSITY LIBRARY</span><span>누구나 연구자 · RESEARCH ARCHIVE</span></div>`;
+  const backToTop = el('button', 'back-to-top');
+  backToTop.type = 'button'; backToTop.setAttribute('aria-label', '맨 위로');
+  backToTop.innerHTML = '<span aria-hidden="true">↑</span><span>맨 위로</span>';
+  backToTop.hidden = true;
+  document.body.append(backToTop);
+  const updateTopButton = () => { backToTop.hidden = window.scrollY < 300; };
+  window.addEventListener('scroll', updateTopButton, { passive: true });
+  updateTopButton();
+  backToTop.onclick = () => {
+    const brand = header.querySelector('.brand');
+    brand.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  };
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
   }), { threshold: 0.08 });

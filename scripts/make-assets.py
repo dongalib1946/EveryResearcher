@@ -24,37 +24,9 @@ try:
 except Exception as exc:
     print('Font download failed:', str(exc))
 
-# 8-second, silent H.264 film: flowing mineral / copper waves and research orbits.
-w, h, fps, seconds = 1440, 480, 24, 8
-y, x = np.mgrid[0:h, 0:w].astype(np.float32)
-x /= w; y /= h
-writer = imageio_ffmpeg.write_frames(str(media / 'research-motion.mp4'), (w, h), fps=fps,
-    codec='libx264', quality=7, pix_fmt_out='yuv420p', output_params=['-movflags', '+faststart'], macro_block_size=16)
-writer.send(None)
-for frame in range(fps * seconds):
-    t = frame / fps
-    u = x * 5 + y * 2 + .65 * np.sin(y * 5 + t * .4) + .3 * np.sin(x * 9 - t * .45)
-    wave = np.sin(u * 3.5 - t * .6)
-    light = np.clip((wave + 1) / 2, 0, 1) ** 1.6
-    fine = .06 * np.sin(u * 33 + y * 13 + t * .4)
-    glow = np.exp(-((x - .63 - .08 * math.sin(t)) ** 2 + (y - .4) ** 2) * 5)
-    colors = np.empty((h, w, 3), dtype=np.float32)
-    for c, (low, high) in enumerate([(12, 206), (42, 153), (53, 78)]):
-        colors[:, :, c] = low + (high - low) * light + fine * 100 + glow * [27, 22, 12][c]
-    img = Image.fromarray(np.clip(colors, 0, 255).astype(np.uint8))
-    draw = ImageDraw.Draw(img, 'RGBA')
-    for n in range(8):
-        cx = 850 + n * 14 + math.sin(t * .45) * 80; cy = 280 + math.cos(t * .3) * 60
-        radius = 120 + n * 44
-        draw.ellipse((cx-radius, cy-radius*.6, cx+radius, cy+radius*.6), outline=(242, 217, 160, 45), width=1)
-    for n in range(32):
-        px = int((n * 173.7 + t * (5 + n % 3)) % w)
-        py = int((n * 93.4 + 20 * math.sin(t * .7 + n)) % h)
-        draw.ellipse((px,py,px+2,py+2),fill=(244,226,174,130))
-    if frame == 24: img.save(media / 'intro-poster.jpg', quality=92)
-    writer.send(np.asarray(img).tobytes())
-writer.close()
-print('Original intro video generated')
+# Generate the seamless background using the dedicated motion generator.
+import runpy
+runpy.run_path(str(ROOT / 'scripts/make-motion.py'))
 
 titles = ['AI와 함께 그리는\n지속 가능한 도시의 미래', '배움의 경계를 넓히는\n생성형 AI의 가능성', '우리의 바다를 위한\n새로운 에너지의 발견', '데이터로 읽는\n마음 건강의 변화', '사람을 향하는\n로봇 기술의 다음 걸음', '기후 위기 속\n새로운 식탁의 조건', '일상의 이동을\n바꾸는 작은 발견', '지역의 기억을\n연결하는 디지털 기록', '더 나은 돌봄을 위한\n의료 AI 연구', '새로운 소재로\n여는 순환의 가능성', '함께 살아가는\n도시의 생태 연구']
 departments = ['도시공학 분야','교육학 분야','에너지공학 분야','심리학 분야','기계공학 분야','식품영양학 분야','교통 분야','인문학 분야','의료 분야','신소재 분야','환경 분야']

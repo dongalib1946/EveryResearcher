@@ -16,6 +16,12 @@ assert.equal(await page.locator('.grid-excellence .winner-card').count(), 3);
 assert.equal(await page.locator('.grid-merit .winner-card').count(), 5);
 assert.equal(await page.locator('[data-demo]').isVisible(), true);
 assert.equal(await page.evaluate(() => scrollY), 0);
+assert.equal(await page.getByRole('button', { name: '맨 위로', exact: true }).isVisible(), false);
+await page.locator('[data-footer]').scrollIntoViewIfNeeded();
+assert.equal(await page.locator('.contact-grid address').count(), 3);
+assert.equal(await page.locator('a[href="mailto:nicks3610@dau.ac.kr"]').count(), 1);
+await page.getByRole('button', { name: '맨 위로', exact: true }).click();
+await page.waitForFunction(() => scrollY === 0);
 assert.equal(await page.locator('.hero-video-opening').evaluate(v => v.paused), true);
 assert.equal(await page.locator('.hero-video-ambient').evaluate(v => v.paused), true);
 await page.screenshot({ path: 'test-results/home-desktop.png' });
@@ -63,6 +69,12 @@ for (const width of [390, 768, 1440]) {
     if (name !== 'about') await page.waitForFunction(() => document.querySelectorAll('.winner-card').length === 11);
     const fits = await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
     assert.equal(fits, true, `${name} overflows at ${width}`);
+    assert.equal(await page.locator('.contact-grid address').count(), 3);
+    if (width === 390 && name === 'about') {
+      await page.locator('[data-footer]').scrollIntoViewIfNeeded();
+      await page.screenshot({ path: 'test-results/footer-mobile.png' });
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    }
     if (width === 390) await page.screenshot({ path: `test-results/${name}-mobile.png` });
     if (name === 'about' && width === 1440) await page.screenshot({ path: 'test-results/about-desktop.png', fullPage: true });
   }
@@ -76,6 +88,8 @@ await motion.waitForFunction(() => document.querySelector('.hero-video-opening')
 assert.match(await motion.locator('.hero-video-opening').getAttribute('src'), /opening-film.mp4/);
 assert.equal(await motion.locator('.hero-video-opening').evaluate(v => v.loop), false);
 await motion.screenshot({ path: 'test-results/opening-film-desktop.png' });
+await motion.waitForFunction(() => document.querySelector('.hero').classList.contains('ambient-visible'));
+assert.equal(await motion.locator('.hero-video-opening').evaluate(v => v.ended), false, 'Crossfade starts before the opening ends');
 await motion.waitForFunction(() => document.querySelector('.hero-video-opening').ended, null, { timeout: 15000 });
 console.log('PASS video ended');
 await motion.waitForFunction(() => document.querySelector('.hero').classList.contains('ambient-visible'));
