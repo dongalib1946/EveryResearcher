@@ -38,3 +38,31 @@ test('API fails closed for malformed headers, duplicates and excess awards', () 
   assert.equal(run([row('a'), row('b')]).result.ok, false);
   assert.equal(run([row('a'), [...row('b')].map((v,i) => i === 1 ? 2027 : v)]).result.ok, true);
 });
+
+test('API permits public non-winners without an award quota but preserves validation', () => {
+  const entries = Array.from({ length: 15 }, (_, i) => row(`participant-${i}`, true, '미수상'));
+  const result = run([row('winner'), ...entries, row('hidden', false, '미수상')]).result;
+  assert.equal(result.ok, true); assert.equal(result.winners.length, 16);
+  assert.equal(result.winners.filter(r => r.award === '미수상').length, 15);
+  assert.equal(run([row('blank', true, '')]).result.ok, false);
+  assert.equal(run([row('typo', true, '미수상팀')]).result.ok, false);
+  assert.equal(run([row('a'), row('b'), ...entries]).result.ok, false);
+  assert.equal(run([row('same', true, '미수상'), row('same')]).result.ok, false);
+});
+
+test('Dropdown upgrade only changes award validation and its note, never cell values or published flags', () => {
+  const changed = [];
+  const sheet = { getMaxRows: () => 1000, getRange(...args) {
+    if (args.join() === '1,1,1,12') return { getDisplayValues: () => [headers] };
+    if (args.join() === '2,3,999,1') return { setDataValidation: rule => changed.push(['validation', rule]) };
+    if (args.join() === '1,3') return { setNote: note => changed.push(['note', note]) };
+    throw Error('Unexpected range ' + args);
+  } };
+  const builder = { requireValueInList(values) { this.values = [...values]; return this; },
+    setAllowInvalid(value) { assert.equal(value, false); return this; }, build() { return this.values; } };
+  const ctx = vm.createContext({console: {log() {}}, getSpreadsheet_: () => ({getSheetByName: () => sheet}),
+    SpreadsheetApp: {newDataValidation: () => builder}});
+  vm.runInContext(source + '\nupdateResearchArchiveAwards();', ctx);
+  assert.deepEqual(changed[0], ['validation', ['총장상', '최우수상', '우수상', '장려상', '미수상']]);
+  assert.equal(changed.length, 2);
+});

@@ -8,7 +8,7 @@ const RESEARCH_ARCHIVE_CONFIG = Object.freeze({
   webMode: 'archive', // 이 버전으로 새 전시 API 배포. 기존 추첨 배포에는 적용하지 마세요.
   sheetName: '수상작_아카이브',
   headers: ['id', 'year', 'award', 'name', 'department', 'title', 'summary', 'tags', 'profileUrl', 'pdfUrl', 'order', 'published'],
-  awards: ['총장상', '최우수상', '우수상', '장려상'],
+  awards: ['총장상', '최우수상', '우수상', '장려상', '미수상'],
   counts: { '총장상': 1, '최우수상': 2, '우수상': 3, '장려상': 5 }
 });
 
@@ -28,7 +28,7 @@ function setupResearchArchive() {
   sheet.setFrozenRows(1);
   const notes = [
     '고유 ID. 예: 2026-president-01. 연도가 달라도 중복 불가.',
-    '전시 연도. 예: 2026', '총장상 / 최우수상 / 우수상 / 장려상',
+    '전시 연도. 예: 2026', '총장상 / 최우수상 / 우수상 / 장려상 / 미수상. 미수상은 전체 아카이브에만 참가작으로 표시됩니다.',
     '공개할 이름 또는 팀명. 팀원 이름도 이 칸에 입력할 수 있습니다.',
     '공개용 학과·소속', '연구 작품 제목', '연구 소개 1~3문장',
     '쉼표로 구분. 예: AI,교육,연구동향',
@@ -54,6 +54,21 @@ function researcherArchiveAssertHeaders_(sheet) {
   }
 }
 
+/** 기존 데이터와 공개 체크를 보존하고 award 드롭다운만 갱신합니다. */
+function updateResearchArchiveAwards() {
+  const sheet = getSpreadsheet_().getSheetByName(RESEARCH_ARCHIVE_CONFIG.sheetName);
+  if (!sheet) throw new Error('먼저 setupResearchArchive를 실행하세요.');
+  researcherArchiveAssertHeaders_(sheet);
+  const rows = sheet.getMaxRows() - 1;
+  if (rows > 0) {
+    const validation = SpreadsheetApp.newDataValidation()
+      .requireValueInList(RESEARCH_ARCHIVE_CONFIG.awards, true).setAllowInvalid(false).build();
+    sheet.getRange(2, 3, rows, 1).setDataValidation(validation);
+  }
+  sheet.getRange(1, 3).setNote('총장상 / 최우수상 / 우수상 / 장려상 / 미수상. 미수상은 전체 아카이브에만 참가작으로 표시됩니다.');
+  console.log('award 드롭다운에 미수상을 추가했습니다. 기존 값과 공개 체크는 유지했습니다.');
+}
+
 function researcherArchiveResponse_() {
   const ARCHIVE = RESEARCH_ARCHIVE_CONFIG;
   let payload;
@@ -77,9 +92,11 @@ function researcherArchiveResponse_() {
         if (row[key] && !/^https:\/\//i.test(row[key])) throw new Error((index + 2) + '행의 링크는 HTTPS 주소여야 합니다.');
       });
       ids[row.id] = true;
-      const group = row.year + ':' + row.award;
-      counts[group] = (counts[group] || 0) + 1;
-      if (counts[group] > ARCHIVE.counts[row.award]) throw new Error(group + ' 공개 팀 수가 시상 인원을 초과했습니다.');
+      if (Object.prototype.hasOwnProperty.call(ARCHIVE.counts, row.award)) {
+        const group = row.year + ':' + row.award;
+        counts[group] = (counts[group] || 0) + 1;
+        if (counts[group] > ARCHIVE.counts[row.award]) throw new Error(group + ' 공개 팀 수가 시상 인원을 초과했습니다.');
+      }
       row.published = true; row.order = Number(row.order) || index + 1;
       ['department', 'summary', 'tags'].forEach(function (key) { row[key] = String(row[key] || ''); });
       winners.push(row);

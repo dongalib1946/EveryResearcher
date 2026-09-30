@@ -11,7 +11,7 @@ async function render() {
   loading(target);
   try {
     const data = await loadWinners({ refresh: true }); demoNotice(data.demo);
-    const winners = data.winners.filter(w => w.year === CONFIG.edition);
+    const winners = data.winners.filter(w => w.year === CONFIG.edition && AWARDS.some(a => a.key === w.award));
     target.replaceChildren();
     if (!winners.length) {
       const empty = el('div', 'state'); empty.append(el('span', 'eyebrow', 'COMING SOON'), el('h3', '', '수상작 포스터 공개를 준비하고 있습니다'), el('p', '', '수상작 선정 후 연구동향분석 포스터를 이곳에 공개합니다.')); target.append(empty);

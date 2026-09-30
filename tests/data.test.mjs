@@ -26,3 +26,12 @@ test('Preview dataset has precisely 1/2/3/5 teams and no unmarked identities', (
   AWARDS.forEach(a => assert.equal(rows.filter(w => w.award === a.key).length, a.count));
   rows.forEach(w => { assert.match(w.name, /샘플/); assert.match(w.profile, /sample/); });
 });
+
+test('Explicit non-winners are retained after award tiers; blank, unknown and private rows stay out', () => {
+  const row = { id: 'p', year: 2026, award: '미수상', name: '참가팀', title: '참가 포스터', published: true };
+  const result = normalizeRows([row, { ...row, id: 'winner', award: '장려상' },
+    { ...row, id: 'blank', award: '' }, { ...row, id: 'typo', award: '미수상팀' },
+    { ...row, id: 'private', published: false }, { ...row, id: 'p2', award: ' 미수상 ', order: 2 }]);
+  assert.deepEqual(result.map(r => [r.id, r.award]), [['winner', 'merit'], ['p', 'participant'], ['p2', 'participant']]);
+  assert.equal(AWARDS.length, 4);
+});

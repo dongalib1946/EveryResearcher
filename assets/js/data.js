@@ -6,6 +6,8 @@ export const AWARDS = [
   { key: 'excellence', name: '우수상', en: 'EXCELLENCE AWARD', count: 3, prize: '각 30만 원', number: '03' },
   { key: 'merit', name: '장려상', en: 'MERIT AWARD', count: 5, prize: '각 20만 원', number: '04' },
 ];
+// Participation is an archive category, never an award tier on the home page.
+export const ARCHIVE_CATEGORIES = [...AWARDS, { key: 'participant', name: '참가작', sheetValue: '미수상' }];
 
 export function safeUrl(value, allowLocal = false) {
   if (!value || typeof value !== 'string') return '';
@@ -42,7 +44,8 @@ export function normalizeRows(rows) {
   const used = new Set();
   return rows.filter(row => row && (row.published === true || String(row.published).toUpperCase() === 'TRUE'))
     .map((row, index) => {
-      const award = AWARDS.find(a => a.key === row.award || a.name === row.award);
+      const value = String(row.award || '').trim();
+      const award = ARCHIVE_CATEGORIES.find(a => a.key === value || (a.sheetValue || a.name) === value);
       const id = String(row.id || '').trim();
       if (!award || !id || used.has(id) || !String(row.name || '').trim() || !String(row.title || '').trim()) return null;
       used.add(id);
@@ -54,7 +57,7 @@ export function normalizeRows(rows) {
         profile: profileUrl(row.profileUrl), pdf: safeUrl(row.pdfUrl, true),
         order: Number(row.order) || index + 1,
       };
-    }).filter(Boolean).sort((a, b) => b.year - a.year || AWARDS.findIndex(v => v.key === a.award) - AWARDS.findIndex(v => v.key === b.award) || a.order - b.order);
+    }).filter(Boolean).sort((a, b) => b.year - a.year || ARCHIVE_CATEGORIES.findIndex(v => v.key === a.award) - ARCHIVE_CATEGORIES.findIndex(v => v.key === b.award) || a.order - b.order);
 }
 
 let pending;

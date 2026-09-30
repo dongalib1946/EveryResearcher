@@ -8,6 +8,8 @@ Google Apps Script 전시 API가 연결되어 있습니다. 현재 공개 수상
 
 첫 화면은 사용자가 제공한 `0930.mp4`의 약 18초 웹 최적화본을 한 번 재생하고, 이후 20초 물결 모션 영상을 반복합니다.
 
+`award`가 `미수상`이고 `published`가 체크된 행은 **전체 아카이브에만 참가작으로 표시**합니다. 참가작은 시상 정원과 별개이며, 메인에는 네 시상 부문의 수상작만 나타납니다. 기존 Apps Script에는 최신 `ResearchArchive.gs` 적용, `updateResearchArchiveAwards` 실행, 전시 API의 새 버전 배포가 필요합니다. 자세한 절차는 `docs/SETUP.ko.md`를 참고하세요.
+
 ## 빠르게 확인
 
 Node.js 22 이상을 설치한 환경에서 이 폴더를 터미널로 열고 실행합니다.

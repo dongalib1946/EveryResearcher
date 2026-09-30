@@ -1,4 +1,4 @@
-import { AWARDS } from './data.js';
+import { ARCHIVE_CATEGORIES } from './data.js';
 
 export function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -62,7 +62,7 @@ export function demoNotice(isDemo) {
 }
 
 export function winnerCard(winner, { featured = false, compact = false, onOpen } = {}) {
-  const award = AWARDS.find(a => a.key === winner.award);
+  const award = ARCHIVE_CATEGORIES.find(a => a.key === winner.award);
   const card = el('article', `winner-card reveal ${featured ? 'featured-card' : ''} ${compact ? 'compact-card' : ''}`);
   const button = el('button', 'card-open');
   button.setAttribute('aria-label', `${winner.name}, ${winner.title}, PDF 작품 보기`);

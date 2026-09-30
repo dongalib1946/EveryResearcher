@@ -44,3 +44,15 @@ test('Failed or malformed API never silently displays samples', async t => {
   await assert.rejects(loadWinners({ refresh: true }));
   assert.equal(count, 1);
 });
+
+test('A participants-only API response does not trigger sample award winners', async t => {
+  const calls = [];
+  t.mock.method(globalThis, 'fetch', async url => {
+    calls.push(url);
+    return response({ok: true, winners: [{...demo.winners[0], id: 'participant', award: '미수상'}]});
+  });
+  const result = await loadWinners({refresh: true});
+  assert.equal(result.demo, false);
+  assert.deepEqual(result.winners.map(w => w.award), ['participant']);
+  assert.deepEqual(calls, [CONFIG.apiUrl]);
+});

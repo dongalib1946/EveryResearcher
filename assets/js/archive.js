@@ -1,4 +1,4 @@
-import { AWARDS, loadWinners } from './data.js';
+import { ARCHIVE_CATEGORIES, loadWinners } from './data.js';
 import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js';
 import { createPdfModal } from './modal.js';
 
@@ -8,11 +8,11 @@ const search = document.querySelector('#search');
 const year = document.querySelector('#year');
 const count = document.querySelector('[data-count]');
 const params = new URLSearchParams(location.search);
-let selected = AWARDS.some(a => a.key === params.get('award')) ? params.get('award') : 'all';
+let selected = ARCHIVE_CATEGORIES.some(a => a.key === params.get('award')) ? params.get('award') : 'all';
 let winners = [];
 search.value = params.get('q') || '';
 const filters = document.querySelector('[data-filters]');
-[{ key: 'all', name: '전체' }, ...AWARDS].forEach(award => {
+[{ key: 'all', name: '전체' }, ...ARCHIVE_CATEGORIES].forEach(award => {
   const button = el('button', 'filter-button', award.name); button.dataset.award = award.key;
   button.onclick = () => { selected = award.key; render(); }; filters.append(button);
 });
