@@ -1,6 +1,6 @@
 import { CONFIG } from './config.js';
 import { AWARDS, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js';
+import { initShell, loading, errorState, demoNotice, winnerCard, awardEmblem, el } from './ui.js';
 import { createPdfModal } from './modal.js';
 import { initIntro } from './intro.js';
 
@@ -21,7 +21,10 @@ async function render() {
       if (!rows.length) return;
       const section = el('section', `award-section award-${award.key}`); section.id = award.key;
       const heading = el('div', 'award-heading reveal');
-      const left = el('div', 'award-heading-title'); left.append(el('span', 'section-number', award.number), el('h2', '', award.name), el('span', 'award-english', award.en));
+      const left = el('div', 'award-heading-title');
+      const label = el('div', 'award-label');
+      label.append(el('h2', '', award.name), el('span', 'award-english', award.en));
+      left.append(awardEmblem(award), label);
       const right = el('div', 'award-heading-detail'); right.append(el('span', '', `${rows.length} TEAM${rows.length > 1 ? 'S' : ''}`), el('span', '', `상금 ${award.prize}`));
       heading.append(left, right);
       const grid = el('div', `winner-grid grid-${award.key}`);

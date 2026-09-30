@@ -7,6 +7,15 @@ export function el(tag, className, text) {
   return node;
 }
 
+export function awardEmblem(award) {
+  const badge = el('span', 'award-emblem');
+  badge.setAttribute('aria-hidden', 'true');
+  // Original vector laurel; inherits the award's own palette from CSS.
+  const branch = '<path d="M44 84C15 73 12 39 31 18" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M30 21C22 19 22 11 28 7C32 11 33 16 30 21ZM23 33C13 31 11 24 14 18C21 20 25 25 23 33ZM19 46C9 43 6 36 8 30C16 33 20 38 19 46ZM21 59C9 58 4 51 5 45C14 47 20 52 21 59ZM27 72C16 74 9 68 8 61C17 60 23 64 27 72ZM38 82C28 88 20 85 17 79C24 75 31 77 38 82ZM24 36C24 25 30 22 37 23C35 31 31 35 24 36ZM21 50C21 39 27 35 33 36C32 44 27 48 21 50ZM24 64C22 53 27 48 33 47C35 55 30 61 24 64ZM32 77C27 67 30 60 36 58C40 66 36 72 32 77Z" fill="currentColor"/>';
+  badge.innerHTML = `<svg viewBox="0 0 100 100" focusable="false"><g class="laurel-leaves">${branch}<g transform="translate(100 0) scale(-1 1)">${branch}</g></g><path class="medal-ribbon" d="M36 61L32 91L43 85L50 94L57 85L68 91L64 61Z"/><circle class="medal-face" cx="50" cy="46" r="25"/><circle class="medal-ring" cx="50" cy="46" r="20"/><path class="medal-star" d="M50 29L51.7 32.8L56 33.3L52.8 36.2L53.7 40.5L50 38.3L46.3 40.5L47.2 36.2L44 33.3L48.3 32.8Z"/><text x="50" y="59" text-anchor="middle">${award.number}</text></svg>`;
+  return badge;
+}
+
 export function initShell(current) {
   const header = document.querySelector('[data-header]');
   header.innerHTML = `<a class="brand" href="./index.html" aria-label="동아대학교 도서관, 전시 홈"><span class="library-symbol"><img src="./assets/images/library-logo.png" alt=""></span><span>동아대학교 도서관<small>DONG-A UNIVERSITY LIBRARY</small></span></a><nav aria-label="주 메뉴"><a href="./index.html" ${current === 'home' ? 'aria-current="page"' : ''}>수상작 전시</a><a href="./archive.html" ${current === 'archive' ? 'aria-current="page"' : ''}>전체 아카이브</a><a href="./about.html" ${current === 'about' ? 'aria-current="page"' : ''}>대회 소개</a></nav><span class="anniversary"><img src="./assets/images/anniversary-80.png" alt="동아대학교 개교 80주년"></span>`;
