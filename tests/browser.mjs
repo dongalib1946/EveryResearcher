@@ -107,11 +107,11 @@ await motion.locator('[data-replay]').click(); await motion.waitForFunction(() =
 console.log('PASS ambient looping and playback controls');
 await motion.goto(base + '/index.html?test=interaction'); await motion.evaluate(() => window.scrollTo(0, 0)); await motion.mouse.click(25, 30); await motion.waitForFunction(() => document.querySelector('.hero-video').ended, { timeout: 15000 });
 assert.equal(await motion.evaluate(() => scrollY), 0);
-await motion.route('**/opening-film.mp4', route => route.abort());
+await motion.route('**/opening-film.mp4*', route => route.abort());
 await motion.goto(base + '/index.html?test=opening-error');
 await motion.waitForFunction(() => document.querySelector('.hero').classList.contains('ambient-visible'));
 assert.equal(await motion.evaluate(() => scrollY), 0);
-await motion.unroute('**/opening-film.mp4');
+await motion.unroute('**/opening-film.mp4*');
 assert.deepEqual(errors, []);
 console.log('PASS: 11 awards, filtering, URL restore, PDF modal and focus, retry, missing PDF, broken image, safe text, production empty state, responsive layouts, video completion and scroll consent.');
 await browser.close();
