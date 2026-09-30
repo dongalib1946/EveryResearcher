@@ -68,6 +68,10 @@ export function winnerCard(winner, { featured = false, compact = false, onOpen }
   button.setAttribute('aria-label', `${winner.name}, ${winner.title}, PDF 작품 보기`);
   const visual = el('div', 'card-visual');
   const img = el('img'); img.src = winner.profile || './assets/images/profile-placeholder.svg';
+  const imageUrl = new URL(img.src), sampleBase = new URL('../images/', import.meta.url);
+  if (imageUrl.origin === sampleBase.origin && imageUrl.pathname.startsWith(sampleBase.pathname) && /\/sample-\d+\.svg$/.test(imageUrl.pathname)) {
+    imageUrl.searchParams.set('v', 'no-numbers-20260930'); img.src = imageUrl.href;
+  }
   img.alt = `${winner.name} 프로필`; img.loading = 'lazy';
   img.onerror = () => { img.onerror = null; img.src = './assets/images/profile-placeholder.svg'; };
   const visualLabel = el('span', 'visual-label', 'RESEARCHER');
