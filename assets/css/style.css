@@ -23,3 +23,8 @@
 @media(max-width:700px){.archive-page>.page-intro,.about-page>.page-intro{margin-bottom:24px}}
 @media(max-width:700px){.anniversary{height:46px}.anniversary img{top:-16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}.spinner{border-style:dotted}}
+
+/* Page content interaction rules; preserve editing in form fields. */
+body{-webkit-user-select:none;user-select:none}
+input,textarea,[contenteditable=""],[contenteditable="true"]{-webkit-user-select:text;user-select:text}
+img,a{-webkit-user-drag:none}

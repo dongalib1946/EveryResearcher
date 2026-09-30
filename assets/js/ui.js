@@ -1,3 +1,4 @@
+import './interactions.js';
 import { ARCHIVE_CATEGORIES } from './data.js';
 
 export function el(tag, className, text) {
