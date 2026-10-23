@@ -27,7 +27,11 @@ body{background:#fff}
 .award-excellence{--award-color:#b17d5c;--award-deep:#86563b;--award-tint:#f4e8de;--award-pale:#fffaf7}
 .award-merit{--award-color:#7772b5;--award-deep:#575087;--award-tint:#ebe9f7;--award-pale:#fcfbff}
 .award-section .award-heading{background:var(--award-pale);border:1px solid var(--award-tint);border-left:4px solid var(--award-color);padding:12px 24px;border-radius:2px}
-.award-president .award-heading{background:linear-gradient(110deg,#f2e5c7,#fffcf5);border-top-width:1px;border-left-width:4px;padding:14px 24px}
+.award-president .award-heading{background:#101c37;border:1px solid #b99555;border-left-width:4px;padding:20px 28px;outline:1px solid #b9955540;outline-offset:-7px;box-shadow:0 8px 24px #101c3714}
+.award-president .award-heading h2{color:#f2d69e}
+.award-president .award-heading .award-english{color:#d8b87d;letter-spacing:.2em}
+.award-president .award-heading .award-heading-detail{color:#f2d69e}
+.award-president .award-heading .award-emblem{color:#d8b87d;--award-color:#d8b87d;--award-pale:#172744;--award-deep:#f2d69e}
 .award-section .award-emblem{width:64px;height:64px}.award-president .award-emblem{width:76px;height:76px}
 .award-section .award-heading h2{font-size:29px;letter-spacing:-.04em}.award-president .award-heading h2{font-size:33px}
 .winner-card:not(.featured-card){background:#fff;border:1px solid #e3e7ef;transition:box-shadow .25s,border-color .25s}
