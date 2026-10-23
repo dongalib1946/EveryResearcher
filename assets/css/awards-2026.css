@@ -60,3 +60,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 @media(max-width:700px){.exhibition-intro{padding-top:34px}.exhibition-intro:before{top:5px;right:-15px;font-size:180px}.exhibition-heading h2{font-size:27px}.award-section{padding-top:34px}.award-section .award-heading{padding:10px 12px;border-left-width:3px}.award-section .award-emblem{width:47px;height:47px}.award-president .award-emblem{width:55px;height:55px}.award-section .award-heading h2{font-size:22px}.award-president .award-heading h2{font-size:25px}.award-section .award-heading-detail{font-size:12px}.winner-card:not(.featured-card) .card-copy{padding:16px}.compact-card .card-copy{padding:12px!important}.compact-card .card-title{font-size:15px}.archive-page>.page-intro,.about-page>.page-intro{padding-block:34px}.site-footer{padding-top:36px}.prize-table>div:first-child{padding-inline:8px}}
 
 .exhibition-stats strong{font-family:inherit;font-size:36px;font-weight:600;letter-spacing:-.045em}@media(max-width:700px){.exhibition-stats strong{font-size:27px}}
+
+/* Keep each row's work links aligned even when titles and author details wrap. */
+.awards-container .card-open{height:100%}
+.awards-container .winner-card:not(.featured-card) .card-open{display:flex;flex-direction:column}
+.awards-container .card-visual{width:100%;flex-shrink:0}
+.awards-container .card-copy{display:flex;flex-direction:column;flex:1;width:100%}
+.awards-container .view-work{margin-top:auto;padding-top:22px;align-self:flex-start}
+.contact-grid .contact-label{margin:0 0 8px;font-size:12px}
+
+/* Identical horizontal padding keeps all four prize columns aligned. */
+.prize-table>div{padding-inline:18px;grid-template-columns:60px minmax(0,1fr) 100px 160px}
+.prize-table p,.prize-table strong{white-space:nowrap}
+@media(max-width:700px){
+  .awards-container .view-work{padding-top:18px}
+  .prize-table>div{padding-inline:8px;grid-template-columns:24px minmax(0,1fr) 28px 90px;gap:8px}
+}
