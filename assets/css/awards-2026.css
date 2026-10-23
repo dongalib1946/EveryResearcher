@@ -73,6 +73,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .awards-container .card-visual{width:100%;flex-shrink:0}
 .awards-container .card-copy{display:flex;flex-direction:column;flex:1;width:100%}
 .awards-container .view-work{margin-top:auto;padding-top:22px;align-self:flex-start}
+/* Share content tracks across neighboring cards without truncating long titles.
+   Each visual row uses: poster, award, title, author, department, tags, link. */
+@supports (grid-template-rows:subgrid){
+  .winner-grid:not(.grid-president),.archive-grid{row-gap:28px}
+  .winner-grid:not(.grid-president)>.winner-card,.archive-grid>.winner-card{
+    display:grid;grid-row:span 7;grid-template-rows:subgrid;row-gap:0;
+  }
+  .awards-container .winner-card:not(.featured-card) .card-open,.archive-grid .card-open{
+    display:grid;grid-row:span 7;grid-template-rows:subgrid;row-gap:0;min-width:0;
+  }
+  .awards-container .winner-card:not(.featured-card) .card-copy,.archive-grid .card-copy{
+    display:grid;grid-row:span 6;grid-template-rows:subgrid;row-gap:0;min-width:0;
+  }
+  .winner-card:not(.featured-card) .card-copy>.card-meta{grid-row:1}
+  .winner-card:not(.featured-card) .card-copy>.card-title-row{grid-row:2}
+  .winner-card:not(.featured-card) .card-copy>.researcher-name{grid-row:3}
+  .winner-card:not(.featured-card) .card-copy>.researcher-dept{grid-row:4}
+  .winner-card:not(.featured-card) .card-copy>.tags{grid-row:5;align-content:start}
+  .winner-card:not(.featured-card) .card-copy>.view-work{grid-row:6;align-self:end}
+}
 .contact-grid .contact-label{margin:0 0 8px;font-size:12px}
 .card-title-row{display:flex;align-items:flex-start;gap:12px;width:100%}
 .card-title-row .card-title{flex:1;min-width:0}
