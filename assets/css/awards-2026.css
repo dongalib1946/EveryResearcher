@@ -1,0 +1,62 @@
+/* 2026 awards exhibition: midnight blue, white and champagne. */
+:root{--paper:#fff;--ink:#14213d;--muted:#657087;--line:#dfe4ee;--gold:#a57729;--dark:#101c37;--blue:#2549b8}
+body{background:#fff}
+.site-header{border-bottom-color:#e2e6ef}
+.site-header nav a{font-weight:600;color:#556078}
+.site-header nav a[aria-current]{color:var(--blue)}
+.site-header nav a[aria-current]:after{background:var(--blue)}
+.hero{background:#fff}
+.hero-topline{color:#647087;letter-spacing:.12em}
+.hero-topline>span:first-child{color:var(--ink)}
+.hero-under{color:#657087}
+.intro-progress{background:#e5e9f1}.intro-progress span{background:#b78c46}
+.hero-bottom.hero-message{background:#f5f7fc;border-bottom:1px solid #e1e6f1}
+.message-copy h2{font-weight:600;color:#243457}
+.message-portrait:before{background:#284bb8}.message-portrait:after{background:#dce4fa}
+.text-link .circle-arrow{background:#fff;border-color:#c9d4ec;color:var(--blue)}
+.exhibition-intro{position:relative;overflow:hidden;background:#101c37;color:#fff;padding-top:65px}
+.exhibition-intro:before{content:'2026';position:absolute;right:3%;top:-55px;font-family:Georgia,serif;font-size:clamp(160px,24vw,340px);line-height:1;color:#ffffff06;pointer-events:none}
+.exhibition-intro .section-kicker,.exhibition-heading,.exhibition-stats{position:relative}
+.exhibition-intro .eyebrow{color:#e1bd7b;letter-spacing:.2em}
+.exhibition-heading h2{font-weight:650;line-height:1.4}
+.exhibition-stats{border-color:#ffffff24}.exhibition-stats strong{color:#edce95}.exhibition-stats a{color:#f4dfb7}
+.exhibition-intro .section-scival{filter:drop-shadow(0 0 1px #ffffff80)}
+.award-section{padding-top:58px}
+.award-president{--award-color:#ac8033;--award-deep:#77531b;--award-tint:#f2e7ce;--award-pale:#fffaf0}
+.award-grand{--award-color:#7588aa;--award-deep:#425675;--award-tint:#e7ecf5;--award-pale:#f9fbff}
+.award-excellence{--award-color:#b17d5c;--award-deep:#86563b;--award-tint:#f4e8de;--award-pale:#fffaf7}
+.award-merit{--award-color:#7772b5;--award-deep:#575087;--award-tint:#ebe9f7;--award-pale:#fcfbff}
+.award-section .award-heading{background:var(--award-pale);border:1px solid var(--award-tint);border-left:4px solid var(--award-color);padding:12px 24px;border-radius:2px}
+.award-president .award-heading{background:linear-gradient(110deg,#f2e5c7,#fffcf5);border-top-width:1px;border-left-width:4px;padding:14px 24px}
+.award-section .award-emblem{width:64px;height:64px}.award-president .award-emblem{width:76px;height:76px}
+.award-section .award-heading h2{font-size:29px;letter-spacing:-.04em}.award-president .award-heading h2{font-size:33px}
+.winner-card:not(.featured-card){background:#fff;border:1px solid #e3e7ef;transition:box-shadow .25s,border-color .25s}
+.winner-card:not(.featured-card):hover{border-color:#b1bed8;box-shadow:0 12px 32px #101c3710}
+.winner-card:not(.featured-card) .card-copy{padding:22px}
+.card-visual{background:#e9edf6}.card-title{font-weight:600;color:var(--ink)}
+.card-meta{font-weight:650;font-size:11px}.card-meta>span:last-child{color:#748096;font-size:10px}
+.researcher-name{font-size:14px}.researcher-dept{font-size:12px}.tags span{color:#657087;background:#f8f9fc;border-color:#e2e6ef;font-size:10px}
+.view-work{color:var(--blue);font-weight:600}.image-arrow{background:#fff;color:var(--blue)}
+.featured-card{background:linear-gradient(120deg,#101c37,#1d3157);border:1px solid #b68e47;box-shadow:0 16px 45px #101c3712}
+.featured-card .card-title{color:#fff}.featured-card .card-copy:before{color:#e7c78c;letter-spacing:.18em}
+.featured-card .card-summary{color:#c0c9dc}.featured-card .researcher-dept{color:#bdc8df}
+.featured-card .card-meta>span:last-child{color:#aebbd5}.featured-card .tags span{color:#d3dcef;border-color:#ffffff30;background:#ffffff06}
+.featured-card .view-work{color:#eacb90;border-color:#b08e52}.featured-card .image-arrow{background:#e6c997;color:#101c37}
+.archive-cta{border-color:#dfe4ee;padding-bottom:10px}.archive-cta>a{font-weight:600}.archive-cta>a>span{color:var(--blue)}
+.archive-page>.page-intro,.about-page>.page-intro{background:#eef2fc;border-bottom:1px solid #dae2f4;padding-block:58px;position:relative;overflow:hidden}
+.page-intro .eyebrow{color:#4462ad;letter-spacing:.18em}.page-title-line h1{font-weight:650;color:#16294f;letter-spacing:-.065em}
+.archive-tools{border-bottom-color:#b3c0db}.search-field input::placeholder{color:#7b879e}
+.filter-button{background:#fff;font-weight:500}.filter-button:hover{border-color:#7d96ce}.filter-button[aria-pressed=true]{background:#2549b8;border-color:#2549b8;color:#fff}
+.page-button[aria-current=page],.page-button[aria-current=page]:hover{background:#2549b8;border-color:#2549b8}.page-button:hover:not(:disabled){background:#edf2ff}
+.about-details{background:#f2f5fb}.about-story h2{font-weight:650}.prize-table>div{border-color:#dfe4ee}.prize-table>div:first-child{background:#fcf7eb;padding-inline:18px;border-top:2px solid #b58b43}
+.prize-table strong{color:#906821}.spinner{border-color:#c8d3ec;border-top-color:#2549b8}
+.pill-button:hover{background:#edf2ff}.demo-notice{color:#657087;background:#f8f9fc}
+.site-footer{background:#0c162c;color:#fff;border-top:3px solid #b58b43;padding-top:55px}
+.footer-title{font-weight:600}.footer-title>span{color:#d9b677}.footer-info>p,.footer-top>div,.footer-contacts>h2,.contact-grid p{color:#aab7d0}
+.footer-info>p:first-child,.contact-grid h3{color:#fff}.contact-grid a{color:#dbe3f4}
+.footer-info>a{border-color:#52617f}.footer-contacts,.footer-bottom{border-color:#ffffff20}.footer-bottom{color:#98a8c6}
+.back-to-top{background:#14264b;border-color:#ba9655;box-shadow:0 6px 24px #101c3725}.back-to-top:hover{background:#2549b8}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline-color:#456bce}
+@media(max-width:700px){.exhibition-intro{padding-top:34px}.exhibition-intro:before{top:5px;right:-15px;font-size:180px}.exhibition-heading h2{font-size:27px}.award-section{padding-top:34px}.award-section .award-heading{padding:10px 12px;border-left-width:3px}.award-section .award-emblem{width:47px;height:47px}.award-president .award-emblem{width:55px;height:55px}.award-section .award-heading h2{font-size:22px}.award-president .award-heading h2{font-size:25px}.award-section .award-heading-detail{font-size:12px}.winner-card:not(.featured-card) .card-copy{padding:16px}.compact-card .card-copy{padding:12px!important}.compact-card .card-title{font-size:15px}.archive-page>.page-intro,.about-page>.page-intro{padding-block:34px}.site-footer{padding-top:36px}.prize-table>div:first-child{padding-inline:8px}}
+
+.exhibition-stats strong{font-family:inherit;font-size:36px;font-weight:600;letter-spacing:-.045em}@media(max-width:700px){.exhibition-stats strong{font-size:27px}}

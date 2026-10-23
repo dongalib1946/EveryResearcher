@@ -20,7 +20,7 @@ def pixels(phase):
     fine = .06 * np.sin(u * 33 + y * 13 + t * .4)
     glow = np.exp(-((x - .63 - .08 * math.sin(t)) ** 2 + (y - .4) ** 2) * 5)
     colors = np.empty((h, w, 3), dtype=np.float32)
-    for c, (low, high) in enumerate([(12, 206), (42, 153), (53, 78)]):
+    for c, (low, high) in enumerate([(10, 222), (22, 178), (55, 101)]):
         colors[:, :, c] = low + (high - low) * light + fine * 100 + glow * [27, 22, 12][c]
     img = Image.fromarray(np.clip(colors, 0, 255).astype(np.uint8))
     draw = ImageDraw.Draw(img, 'RGBA')
