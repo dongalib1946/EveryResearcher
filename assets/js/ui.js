@@ -79,7 +79,10 @@ export function winnerCard(winner, { featured = false, compact = false, onOpen }
   visual.append(img, visualLabel, el('span', 'image-arrow', '↗'));
   const copy = el('div', 'card-copy');
   const meta = el('div', 'card-meta'); meta.append(el('span', '', award.name), el('span', '', `${winner.year} · ${String(winner.order).padStart(2, '0')}`));
-  copy.append(meta, el(featured ? 'h3' : 'h3', 'card-title', winner.title));
+  const titleRow = el('div', `card-title-row award-${award.key}`);
+  if (award.number) titleRow.append(awardEmblem(award));
+  titleRow.append(el('h3', 'card-title', winner.title));
+  copy.append(meta, titleRow);
   if (featured && winner.summary) copy.append(el('p', 'card-summary', winner.summary));
   copy.append(el('p', 'researcher-name', winner.name), el('p', 'researcher-dept', winner.department));
   const tags = el('div', 'tags'); winner.tags.slice(0, 3).forEach(t => tags.append(el('span', '', t)));

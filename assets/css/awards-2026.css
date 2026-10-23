@@ -32,6 +32,8 @@ body{background:#fff}
 .award-president .award-heading .award-english{color:#243457;letter-spacing:.2em}
 .award-president .award-heading .award-heading-detail{color:#14213d}
 .award-president .award-heading .award-emblem{color:#14213d;--award-color:#14213d;--award-pale:#e3c383;--award-deep:#14213d}
+.award-grand .award-heading,.award-excellence .award-heading,.award-merit .award-heading{background:var(--award-tint);border-color:var(--award-deep);outline:1px solid var(--award-deep);outline-offset:-7px;box-shadow:0 6px 18px #101c370c}
+.award-grand .award-heading .award-emblem,.award-excellence .award-heading .award-emblem,.award-merit .award-heading .award-emblem{color:var(--award-deep);--award-pale:var(--award-tint)}
 .award-section .award-emblem{width:64px;height:64px}.award-president .award-emblem{width:76px;height:76px}
 .award-section .award-heading h2{font-size:29px;letter-spacing:-.04em}.award-president .award-heading h2{font-size:33px}
 .winner-card:not(.featured-card){background:#fff;border:1px solid #e3e7ef;transition:box-shadow .25s,border-color .25s}
@@ -72,6 +74,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .awards-container .card-copy{display:flex;flex-direction:column;flex:1;width:100%}
 .awards-container .view-work{margin-top:auto;padding-top:22px;align-self:flex-start}
 .contact-grid .contact-label{margin:0 0 8px;font-size:12px}
+.card-title-row{display:flex;align-items:flex-start;gap:12px;width:100%}
+.card-title-row .card-title{flex:1;min-width:0}
+.card-title-row .award-emblem{width:42px;height:42px;color:var(--award-deep);flex-shrink:0;margin-top:2px}
+.featured-card .card-title-row .award-emblem{width:64px;height:64px;color:#e3c383;--award-color:#e3c383;--award-pale:#172744;--award-deep:#f2d69e}
+.compact-card .card-title-row{gap:7px}
+.compact-card .card-title-row .award-emblem{width:30px;height:30px}
+@media(max-width:700px){
+  .card-title-row{gap:8px}
+  .card-title-row .award-emblem{width:34px;height:34px}
+  .featured-card .card-title-row .award-emblem{width:48px;height:48px}
+  .compact-card .card-title-row,.archive-grid .card-title-row{flex-direction:column;gap:8px}
+}
 
 /* Identical horizontal padding keeps all four prize columns aligned. */
 .prize-table>div{padding-inline:18px;grid-template-columns:60px minmax(0,1fr) 100px 160px}
