@@ -91,26 +91,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .winner-card:not(.featured-card) .card-copy>.researcher-name{grid-row:3}
   .winner-card:not(.featured-card) .card-copy>.researcher-dept{grid-row:4}
   .winner-card:not(.featured-card) .card-copy>.tags{grid-row:5;align-content:start}
-  .winner-card:not(.featured-card) .card-copy>.view-work{grid-row:6;align-self:end}
+  .winner-card:not(.featured-card) .card-copy>.card-work-footer{grid-row:6;align-self:end}
 }
 .contact-grid .contact-label{margin:0 0 8px;font-size:12px}
 .card-title-row{display:flex;align-items:flex-start;gap:12px;width:100%}
 .card-title-row .card-title{flex:1;min-width:0}
-.card-title-row .award-emblem{width:42px;height:42px;color:var(--award-deep);flex-shrink:0;margin-top:2px}
-.featured-card .card-title-row .award-emblem{width:64px;height:64px;color:#e3c383;--award-color:#e3c383;--award-pale:#172744;--award-deep:#f2d69e}
-.compact-card .card-title-row{gap:7px}
-.compact-card .card-title-row .award-emblem{width:30px;height:30px}
+.card-work-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin-top:auto;padding-top:22px;min-height:64px}
+.card-work-footer .view-work{margin-top:0;padding-top:0;align-self:center}
+.card-work-footer .award-emblem{width:42px;height:42px;color:var(--award-deep);flex-shrink:0}
+.featured-card .card-work-footer .award-emblem{width:56px;height:56px;color:#e3c383;--award-color:#e3c383;--award-pale:#172744;--award-deep:#f2d69e}
 @media(max-width:700px){
-  .card-title-row{gap:8px}
-  .card-title-row .award-emblem{width:34px;height:34px}
-  .featured-card .card-title-row .award-emblem{width:48px;height:48px}
-  .compact-card .card-title-row,.archive-grid .card-title-row{flex-direction:column;gap:8px}
+  .card-work-footer{gap:6px;padding-top:18px;min-height:50px}
+  .card-work-footer .award-emblem{width:32px;height:32px}
+  .featured-card .card-work-footer .award-emblem{width:44px;height:44px}
 }
 
 /* Identical horizontal padding keeps all four prize columns aligned. */
 .prize-table>div{padding-inline:18px;grid-template-columns:60px minmax(0,1fr) 100px 160px}
 .prize-table p,.prize-table strong{white-space:nowrap}
 @media(max-width:700px){
-  .awards-container .view-work{padding-top:18px}
+  .awards-container .card-work-footer .view-work{padding-top:0}
   .prize-table>div{padding-inline:8px;grid-template-columns:24px minmax(0,1fr) 28px 90px;gap:8px}
 }

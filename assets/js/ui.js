@@ -80,13 +80,15 @@ export function winnerCard(winner, { featured = false, compact = false, onOpen }
   const copy = el('div', 'card-copy');
   const meta = el('div', 'card-meta'); meta.append(el('span', '', award.name), el('span', '', `${winner.year} · ${String(winner.order).padStart(2, '0')}`));
   const titleRow = el('div', `card-title-row award-${award.key}`);
-  if (award.number) titleRow.append(awardEmblem(award));
   titleRow.append(el('h3', 'card-title', winner.title));
   copy.append(meta, titleRow);
   if (featured && winner.summary) copy.append(el('p', 'card-summary', winner.summary));
   copy.append(el('p', 'researcher-name', winner.name), el('p', 'researcher-dept', winner.department));
   const tags = el('div', 'tags'); winner.tags.slice(0, 3).forEach(t => tags.append(el('span', '', t)));
-  copy.append(tags, el('span', 'view-work', '연구 작품 보기 ↗'));
+  const footer = el('div', `card-work-footer award-${award.key}`);
+  footer.append(el('span', 'view-work', '연구 작품 보기 ↗'));
+  if (award.number) footer.append(awardEmblem(award));
+  copy.append(tags, footer);
   button.append(visual, copy); button.onclick = () => onOpen(winner);
   card.append(button); return card;
 }

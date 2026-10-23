@@ -1,6 +1,6 @@
 import { CONFIG } from './config.js';
 import { AWARDS, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, awardEmblem, el } from './ui.js?v=20261023-4';
+import { initShell, loading, errorState, demoNotice, winnerCard, awardEmblem, el } from './ui.js?v=20261023-6';
 import { createPdfModal } from './modal.js';
 import { initIntro } from './intro.js';
 

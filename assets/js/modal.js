@@ -1,5 +1,5 @@
 import { pdfPreview } from './data.js';
-import { el } from './ui.js?v=20261023-4';
+import { el } from './ui.js?v=20261023-6';
 
 export function createPdfModal() {
   const dialog = el('dialog', 'pdf-dialog');
