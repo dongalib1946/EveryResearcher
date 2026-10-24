@@ -55,8 +55,6 @@ function render({ push = false, syncUrl = true, moveToResults = false } = {}) {
       else addButton(String(number), number, `${number}페이지`);
     });
     addButton('→', currentPage + 1, '다음 페이지');
-    const status = el('p', 'page-status', `${currentPage} / ${page.pages} 페이지`);
-    status.setAttribute('role', 'status'); pagination.append(status);
   }
   window.reveal(target);
   if (moveToResults) {
