@@ -58,7 +58,12 @@ body{background:#fff}
 .researcher-name{font-size:14px}.researcher-dept{font-size:12px}.tags span{color:#657087;background:#f8f9fc;border-color:#e2e6ef;font-size:10px}
 .view-work{color:var(--blue);font-weight:600}.image-arrow{background:#fff;color:var(--blue)}
 .featured-card{background:linear-gradient(120deg,#101c37,#1d3157);border:1px solid #b68e47;box-shadow:0 16px 45px #101c3712}
-.featured-card .card-title{color:#fff}.featured-card .card-copy:before{color:#e7c78c;letter-spacing:.18em}
+.featured-card .card-title{color:#fff}
+.featured-card .card-copy{position:relative;isolation:isolate;overflow:hidden}
+.featured-card .card-copy:before{content:'';position:absolute;inset:-220px;z-index:-1;margin:0;background-image:url('../images/anniversary-80.png');background-repeat:repeat;background-size:240px 240px;transform:rotate(-25deg);filter:grayscale(1) brightness(0) invert(1);opacity:.045;pointer-events:none}
+.featured-card .card-meta{align-items:center;gap:16px;margin-bottom:24px}
+.featured-card .card-meta>span:first-child{font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.3;letter-spacing:-.04em}
+@media(max-width:700px){.featured-card .card-copy:before{background-size:180px 180px}.featured-card .card-meta{margin-bottom:20px}}
 .featured-card .card-summary{color:#c0c9dc}.featured-card .researcher-dept{color:#bdc8df}
 .featured-card .card-meta>span:last-child{color:#aebbd5}.featured-card .tags span{color:#d3dcef;border-color:#ffffff30;background:#ffffff06}
 .featured-card .view-work{color:#eacb90;border-color:#b08e52}.featured-card .image-arrow{background:#e6c997;color:#101c37}
