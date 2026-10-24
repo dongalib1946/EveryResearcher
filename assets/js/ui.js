@@ -20,7 +20,7 @@ export function awardEmblem(award) {
 export function initShell(current) {
   const header = document.querySelector('[data-header]');
   header.innerHTML = `<a class="brand" href="./index.html" aria-label="동아대학교 도서관, 전시 홈"><span class="library-symbol"><img src="./assets/images/library-logo.png" alt=""></span><span>동아대학교 도서관<small>DONG-A UNIVERSITY LIBRARY</small></span></a><nav aria-label="주 메뉴"><a href="./index.html" ${current === 'home' ? 'aria-current="page"' : ''}>수상작 전시</a><a href="./archive.html" ${current === 'archive' ? 'aria-current="page"' : ''}>전체 아카이브</a><a href="./about.html" ${current === 'about' ? 'aria-current="page"' : ''}>대회 소개</a></nav><span class="anniversary"><img src="./assets/images/anniversary-80.png" alt="동아대학교 개교 80주년"></span>`;
-  document.querySelector('[data-footer]').innerHTML = `<div class="footer-top"><a class="footer-title" href="./index.html">데이터를 읽고,<br>연구의 흐름을 발견하다.<span>↗</span></a><div class="footer-identity"><div class="footer-logos" role="group" aria-label="도서관, 개교 80주년, SciVal 로고"><span class="footer-library"><img src="./assets/images/library-logo-white.png" alt="동아대학교 도서관" width="1000" height="160"></span><span class="footer-anniversary"><img src="./assets/images/anniversary-80.png" alt="동아대학교 개교 80주년"></span><span class="scival-mark footer-scival"><img src="./assets/images/scival-logo.png" alt="Elsevier SciVal" width="512" height="256"></span></div><div class="footer-info"><p>누구나 연구자 경진대회</p><p>동아대학교 도서관 · 동아대학교 앵커사업추진단</p><a href="./about.html">대회 소개 보기 ↗</a></div></div></div>
+  document.querySelector('[data-footer]').innerHTML = `<div class="footer-top"><a class="footer-title" href="./index.html"><em class="title-accent">데이터</em>를 읽고,<br><em class="title-accent">연구의 흐름</em>을 발견하다.<span>↗</span></a><div class="footer-identity"><div class="footer-logos" role="group" aria-label="도서관, 개교 80주년, SciVal 로고"><span class="footer-library"><img src="./assets/images/library-logo-white.png" alt="동아대학교 도서관" width="1000" height="160"></span><span class="footer-anniversary"><img src="./assets/images/anniversary-80.png" alt="동아대학교 개교 80주년"></span><span class="scival-mark footer-scival"><img src="./assets/images/scival-logo.png" alt="Elsevier SciVal" width="512" height="256"></span></div><div class="footer-info"><p>누구나 연구자 경진대회</p><p>동아대학교 도서관 · 동아대학교 앵커사업추진단</p><a href="./about.html">대회 소개 보기 ↗</a></div></div></div>
     <section class="footer-contacts" aria-labelledby="contacts-title"><h2 id="contacts-title" class="sr-only">담당자 안내</h2><div class="contact-grid">
       <address><p class="contact-label">담당자</p><h3>김세훈</h3><p>각종 문의</p><a href="tel:0512006272">(051)200-6272</a><a href="mailto:sehkim@dau.ac.kr">sehkim@dau.ac.kr</a></address>
       <address><p class="contact-label">담당자</p><h3>서지현</h3><p>각종 문의</p><a href="tel:0512006275">(051)200-6275</a><a href="mailto:sjh7978@dau.ac.kr">sjh7978@dau.ac.kr</a></address>
@@ -31,6 +31,13 @@ export function initShell(current) {
   backToTop.innerHTML = '<span aria-hidden="true">↑</span><span>맨 위로</span>';
   backToTop.hidden = true;
   document.body.append(backToTop);
+  const libraryLink = el('a', 'library-shortcut');
+  libraryLink.href = 'https://library.donga.ac.kr';
+  libraryLink.target = '_blank';
+  libraryLink.rel = 'noopener noreferrer';
+  libraryLink.setAttribute('aria-label', '동아대학교 도서관 바로가기 (새 탭)');
+  libraryLink.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1V5Zm9 1v14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>동아대학교 도서관<small>바로가기 ↗</small></span>';
+  document.body.append(libraryLink);
   const updateTopButton = () => { backToTop.hidden = window.scrollY < 300; };
   window.addEventListener('scroll', updateTopButton, { passive: true });
   updateTopButton();

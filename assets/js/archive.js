@@ -1,5 +1,5 @@
 import { ARCHIVE_CATEGORIES, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261023-6';
+import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261024-1';
 import { createPdfModal } from './modal.js';
 import { paginate, pageNumbers } from './pagination.js';
 

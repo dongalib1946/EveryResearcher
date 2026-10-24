@@ -1,2 +1,2 @@
-import { initShell } from './ui.js?v=20261023-6';
+import { initShell } from './ui.js?v=20261024-1';
 initShell('about');
