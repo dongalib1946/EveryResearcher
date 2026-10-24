@@ -1,6 +1,6 @@
 import { ARCHIVE_CATEGORIES, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261024-1';
-import { createPdfModal } from './modal.js';
+import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261024-2';
+import { createPdfModal } from './modal.js?v=20261024-2';
 import { paginate, pageNumbers } from './pagination.js';
 
 initShell('archive'); const open = createPdfModal();
@@ -36,6 +36,8 @@ function render({ push = false, syncUrl = true, moveToResults = false } = {}) {
   } else page.items.forEach(w => target.append(winnerCard(w, { onOpen: open })));
   pagination.replaceChildren(); pagination.hidden = page.pages <= 1;
   if (!pagination.hidden) {
+    const controls = el('div', 'pagination-controls');
+    pagination.append(controls);
     const addButton = (label, destination, ariaLabel) => {
       const button = el('button', 'page-button', label); button.type = 'button';
       button.setAttribute('aria-label', ariaLabel);
@@ -45,11 +47,11 @@ function render({ push = false, syncUrl = true, moveToResults = false } = {}) {
         if (destination === currentPage) return;
         currentPage = destination; render({ push: true, moveToResults: true });
       };
-      pagination.append(button);
+      controls.append(button);
     };
     addButton('←', currentPage - 1, '이전 페이지');
     pageNumbers(currentPage, page.pages).forEach(number => {
-      if (number === null) { const dots = el('span', 'page-ellipsis', '…'); dots.setAttribute('aria-hidden', 'true'); pagination.append(dots); }
+      if (number === null) { const dots = el('span', 'page-ellipsis', '…'); dots.setAttribute('aria-hidden', 'true'); controls.append(dots); }
       else addButton(String(number), number, `${number}페이지`);
     });
     addButton('→', currentPage + 1, '다음 페이지');

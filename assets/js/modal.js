@@ -1,10 +1,10 @@
 import { pdfPreview } from './data.js';
-import { el } from './ui.js?v=20261024-1';
+import { el } from './ui.js?v=20261024-2';
 
 export function createPdfModal() {
   const dialog = el('dialog', 'pdf-dialog');
   dialog.setAttribute('aria-labelledby', 'pdf-title');
-  dialog.innerHTML = `<div class="modal-header"><div><span class="eyebrow">RESEARCH ARCHIVE</span><h2 id="pdf-title"></h2><p class="modal-author"></p></div><button class="close-modal" aria-label="작품 창 닫기">×</button></div><div class="pdf-body"></div><div class="modal-footer"><p>미리보기가 표시되지 않으면 원본 PDF를 열어주세요.</p><a class="pill-button" target="_blank" rel="noopener noreferrer">원본 PDF 열기 ↗</a></div>`;
+  dialog.innerHTML = `<div class="modal-header"><div><span class="eyebrow">RESEARCH ARCHIVE</span><h2 id="pdf-title"></h2><p class="modal-author"></p></div><button class="close-modal" aria-label="작품 창 닫기" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="pdf-body"></div><div class="modal-footer"><p>미리보기가 표시되지 않으면 원본 PDF를 열어주세요.</p><a class="pill-button" target="_blank" rel="noopener noreferrer">원본 PDF 열기 ↗</a></div>`;
   document.body.append(dialog);
   const body = dialog.querySelector('.pdf-body');
   let opener, timer;
