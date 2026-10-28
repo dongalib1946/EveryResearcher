@@ -1,6 +1,6 @@
 import { CONFIG } from './config.js';
 import { AWARDS, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, awardEmblem, el } from './ui.js?v=20261024-2';
+import { initShell, loading, errorState, demoNotice, winnerCard, awardEmblem, el } from './ui.js?v=20261028-3';
 import { createPdfModal } from './modal.js?v=20261024-2';
 import { initIntro } from './intro.js';
 
@@ -28,7 +28,7 @@ async function render() {
       const right = el('div', 'award-heading-detail'); right.append(el('span', '', `${rows.length} TEAM${rows.length > 1 ? 'S' : ''}`), el('span', '', `상금 ${award.prize}`));
       heading.append(left, right);
       const grid = el('div', `winner-grid grid-${award.key}`);
-      rows.forEach(w => grid.append(winnerCard(w, { featured: award.key === 'president', compact: award.key === 'merit', onOpen: open })));
+      rows.forEach(w => grid.append(winnerCard(w, { featured: award.key === 'president', twoColumn: award.key === 'grand', compact: award.key === 'merit', onOpen: open })));
       section.append(heading, grid); target.append(section);
     });
     window.reveal(target);

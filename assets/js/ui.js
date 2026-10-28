@@ -1,5 +1,6 @@
 import './interactions.js';
 import { ARCHIVE_CATEGORIES } from './data.js';
+import { thumbnailSources } from './thumbnails.js';
 
 export function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -36,7 +37,8 @@ export function initShell(current) {
   libraryLink.target = '_blank';
   libraryLink.rel = 'noopener noreferrer';
   libraryLink.setAttribute('aria-label', '동아대학교 도서관 바로가기 (새 탭)');
-  libraryLink.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1V5Zm9 1v14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>동아대학교 도서관<small>바로가기 ↗</small></span>';
+  libraryLink.title = '동아대학교 도서관 바로가기';
+  libraryLink.innerHTML = '<img src="./assets/images/library-logo-white.png" alt="" width="1000" height="160">';
   document.body.append(libraryLink);
   const updateTopButton = () => { backToTop.hidden = window.scrollY < 300; };
   window.addEventListener('scroll', updateTopButton, { passive: true });
@@ -69,7 +71,7 @@ export function demoNotice(isDemo) {
   if (node) node.hidden = !isDemo;
 }
 
-export function winnerCard(winner, { featured = false, compact = false, onOpen } = {}) {
+export function winnerCard(winner, { featured = false, compact = false, priority = false, twoColumn = false, archive = false, onOpen } = {}) {
   const award = ARCHIVE_CATEGORIES.find(a => a.key === winner.award);
   const card = el('article', `winner-card reveal ${featured ? 'featured-card' : ''} ${compact ? 'compact-card' : ''}`);
   const button = el('button', 'card-open');
@@ -80,8 +82,30 @@ export function winnerCard(winner, { featured = false, compact = false, onOpen }
   if (imageUrl.origin === sampleBase.origin && imageUrl.pathname.startsWith(sampleBase.pathname) && /\/sample-\d+\.svg$/.test(imageUrl.pathname)) {
     imageUrl.searchParams.set('v', 'awards-20261023'); img.src = imageUrl.href;
   }
-  img.alt = `${winner.name} 프로필`; img.loading = 'lazy';
-  img.onerror = () => { img.onerror = null; img.src = './assets/images/profile-placeholder.svg'; };
+  const thumbnail = thumbnailSources(winner.profile);
+  if (thumbnail) {
+    img.srcset = thumbnail.srcset;
+    img.sizes = archive ? '(max-width: 700px) 45vw, 32vw'
+      : featured ? '(max-width: 700px) 90vw, 50vw'
+      : compact ? '(max-width: 700px) 45vw, (max-width: 1050px) 30vw, 20vw'
+      : twoColumn ? '(max-width: 700px) 90vw, 48vw'
+      : '(max-width: 700px) 90vw, 32vw';
+    img.width = thumbnail.width; img.height = thumbnail.height;
+    img.src = thumbnail.src;
+  }
+  img.alt = `${winner.title} 작품 포스터`;
+  img.loading = priority ? 'eager' : 'lazy';
+  img.decoding = 'async';
+  if (priority) img.fetchPriority = 'high';
+  let triedOriginal = !thumbnail;
+  img.onerror = () => {
+    img.removeAttribute('srcset'); img.removeAttribute('sizes');
+    if (!triedOriginal && winner.profile) {
+      triedOriginal = true; img.src = winner.profile;
+    } else {
+      img.onerror = null; img.src = './assets/images/profile-placeholder.svg';
+    }
+  };
   const visualLabel = el('span', 'visual-label', 'RESEARCHER');
   visual.append(img, visualLabel, el('span', 'image-arrow', '↗'));
   const copy = el('div', 'card-copy');

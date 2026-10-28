@@ -1,5 +1,5 @@
 import { ARCHIVE_CATEGORIES, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261024-2';
+import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261028-3';
 import { createPdfModal } from './modal.js?v=20261024-2';
 import { paginate, pageNumbers } from './pagination.js';
 
@@ -33,7 +33,7 @@ function render({ push = false, syncUrl = true, moveToResults = false } = {}) {
     const empty = el('div', 'state'); empty.append(el('h2', '', winners.length ? '검색 결과가 없습니다' : '수상작 공개를 준비하고 있습니다'), el('p', '', winners.length ? '다른 검색어 또는 시상 부문을 선택해 주세요.' : '공개된 연구동향분석 포스터를 연도와 시상 부문별로 확인할 수 있습니다.'));
     if (winners.length) { const reset = el('button', 'pill-button', '검색 초기화 ↻'); reset.onclick = () => { search.value = ''; year.value = 'all'; selected = 'all'; currentPage = 1; render(); }; empty.append(reset); }
     target.append(empty);
-  } else page.items.forEach(w => target.append(winnerCard(w, { onOpen: open })));
+  } else page.items.forEach((w, index) => target.append(winnerCard(w, { archive: true, priority: index === 0, onOpen: open })));
   pagination.replaceChildren(); pagination.hidden = page.pages <= 1;
   if (!pagination.hidden) {
     const controls = el('div', 'pagination-controls');
