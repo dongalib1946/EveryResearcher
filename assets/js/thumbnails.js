@@ -9,6 +9,7 @@ export function thumbnailSources(profile) {
     url: new URL(`../images/thumbnails/${file}`, import.meta.url).href, width,
   }));
   return {
+    previewSrc: sources.at(-1).url,
     src: sources[Math.min(1, sources.length - 1)].url,
     srcset: sources.map(s => `${s.url} ${s.width}w`).join(', '),
     width: entry.width, height: entry.height,

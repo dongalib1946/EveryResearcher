@@ -144,3 +144,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .awards-container .card-work-footer .view-work{padding-top:0}
   .prize-table>div{padding-inline:8px;grid-template-columns:24px minmax(0,1fr) 28px 90px;gap:8px}
 }
+
+/* Keep the PDF's scrolling surface separate from the iOS close control. */
+body.modal-open{position:fixed;top:var(--modal-scroll-top,0);left:0;right:0;width:100%}
+.pdf-dialog{overflow:hidden}
+.modal-header{position:relative;z-index:2;flex-shrink:0;align-items:flex-start;background:var(--paper)}
+.modal-header>div{min-width:0;max-height:30svh;overflow:auto;overflow-wrap:anywhere}
+.modal-header h2{overflow-wrap:anywhere}
+.close-modal{position:relative;flex:0 0 44px;width:44px;height:44px;touch-action:manipulation}
+.close-modal svg{pointer-events:none}
+.pdf-body{isolation:isolate;overflow:hidden}
+.modal-footer{flex-shrink:0}
+
+.pdf-body.poster-preview{overflow:auto;overscroll-behavior:contain;background:#e9edf6}
+.poster-preview-image{display:block;width:100%;height:auto;max-width:100%;margin:0 auto}
