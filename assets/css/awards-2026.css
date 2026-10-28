@@ -27,16 +27,16 @@ body{background:#fff}
 .hero-bottom.hero-message{background:#f5f7fc;border-bottom:1px solid #e1e6f1}
 .message-copy h2{font-weight:600;color:#243457;font-size:clamp(27px,3vw,46px);line-height:1.5}
 .message-support{margin-top:22px}
-.message-subtitle{padding-left:14px;border-left:2px solid #b99555;color:#657087;font-size:clamp(14px,1.2vw,18px);line-height:1.75;word-break:keep-all}
+.message-subtitle{padding-left:14px;border-left:2px solid #b99555;color:#657087;font-size:clamp(17px,1.5vw,22px);line-height:1.65;word-break:keep-all}
 .message-subtitle strong{color:#906821;font-weight:600}
 .message-subtitle-break{display:none}
 .message-support .text-link{margin-top:22px}
 @media(max-width:700px){
   .message-copy h2{font-size:clamp(16px,4.5vw,20px);line-height:1.55}
   .message-support{grid-column:1;grid-row:2;margin:0;align-self:center;min-width:0}
-  .message-subtitle{padding-left:10px;font-size:12px;line-height:1.75;word-break:keep-all}
+  .message-subtitle{padding-left:10px;font-size:14px;line-height:1.65;word-break:keep-all}
   .message-subtitle-break{display:block}
-  .message-support .text-link{margin-top:18px;gap:8px;font-size:10px}
+  .message-support .text-link{margin-top:14px;gap:8px;font-size:10px}
   .hero-message .message-portrait{grid-column:2;grid-row:2}
 }
 .message-portrait:before{background:#284bb8}.message-portrait:after{background:#dce4fa}
