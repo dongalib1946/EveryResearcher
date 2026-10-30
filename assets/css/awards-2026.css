@@ -162,3 +162,6 @@ body.modal-open{position:fixed;top:var(--modal-scroll-top,0);left:0;right:0;widt
 .portrait-caption{position:absolute;z-index:1;bottom:16px;left:50%;transform:translateX(-50%);width:max-content;max-width:100%;padding:8px 18px;border:1px solid #ffffff30;border-radius:6px;background:rgb(12 25 48 / 92%);box-shadow:0 2px 10px #0002;text-align:center;color:#fff;font-size:18px;font-weight:400;letter-spacing:.06em;line-height:1.4;text-shadow:0 1px 6px #101c37b3;pointer-events:none}
 .portrait-caption strong{font-size:1.22em;font-weight:600;margin-left:6px;letter-spacing:.12em}
 @media(max-width:700px){.portrait-caption{bottom:8px;padding:5px 9px;border-radius:4px;font-size:11px}.portrait-caption strong{margin-left:4px}}
+
+/* Preserve poster headings when card proportions crop the image. */
+.card-visual>img{object-position:center top;transform-origin:center top}
