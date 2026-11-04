@@ -23,8 +23,8 @@ try {
   await page.reload();
   await page.waitForFunction(()=>document.querySelectorAll('.winner-card').length===1);
   await page.locator('.card-open').click();
-  await page.waitForSelector('dialog[open] iframe');
-  assert.match(await page.locator('dialog iframe').getAttribute('src'),/sample-work.pdf/);
+  await page.waitForSelector('.pdf-dialog[open] iframe');
+  assert.match(await page.locator('.pdf-dialog iframe').getAttribute('src'),/sample-work.pdf/);
   await page.keyboard.press('Escape');
   await page.locator('#search').fill('없는 작품');
   assert.equal(await page.locator('.winner-card').count(),0);

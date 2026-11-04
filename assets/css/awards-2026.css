@@ -165,3 +165,13 @@ body.modal-open{position:fixed;top:var(--modal-scroll-top,0);left:0;right:0;widt
 
 /* Preserve poster headings when card proportions crop the image. */
 .card-visual>img{object-position:center top;transform-origin:center top}
+
+.ceremony-shortcut{position:fixed;left:max(24px,env(safe-area-inset-left));bottom:calc(max(24px,env(safe-area-inset-bottom)) + 76px);z-index:30;display:flex;align-items:center;justify-content:center;gap:7px;width:154.1875px;min-height:46px;padding:10px 8px;border:1px solid #ba9655;border-radius:24px;background:#e3c383;color:#14213d;box-shadow:0 4px 20px #101c3725;font-size:12px;font-weight:700;white-space:nowrap}
+.ceremony-shortcut:hover{background:#f0d69d}.ceremony-play{font-size:11px}
+.modal-open .ceremony-shortcut{visibility:hidden}
+.ceremony-dialog{padding:0;border:0;border-radius:10px;width:min(960px,94vw);max-width:94vw;max-height:94svh;background:#fff;color:var(--ink);box-shadow:0 25px 100px #0006;overflow:auto}
+.ceremony-dialog::backdrop{background:#0a1428d9}
+.ceremony-player{position:relative;aspect-ratio:16/9;min-height:200px;background:#090f1b;isolation:isolate}
+.ceremony-player iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0}
+.ceremony-dialog .modal-header{position:sticky;top:0}
+@media(max-width:700px){.ceremony-shortcut{left:max(16px,env(safe-area-inset-left));bottom:calc(max(16px,env(safe-area-inset-bottom)) + 66px);width:131.078125px;font-size:11px;gap:5px;min-height:44px}.ceremony-dialog{width:96vw;max-width:96vw}.ceremony-dialog .modal-header h2{font-size:16px}}

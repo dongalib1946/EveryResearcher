@@ -21,7 +21,7 @@ try {
   assert.equal(await page.locator('.card-title').first().textContent(),'연구 PART001');
   assert.equal(await page.evaluate(()=>document.activeElement.hasAttribute('data-archive')),true);
   await page.locator('.card-open').first().click();
-  await page.waitForSelector('dialog[open] iframe');
+  await page.waitForSelector('.pdf-dialog[open] iframe');
   assert.equal(await page.locator('#pdf-title').textContent(),'연구 PART001');
   await page.keyboard.press('Escape');
   await page.reload();await pager.getByRole('button',{name:'2페이지',exact:true}).waitFor();

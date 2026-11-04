@@ -30,9 +30,9 @@ await page.waitForFunction(() => [...document.querySelectorAll('.card-visual img
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.screenshot({ path: 'test-results/home-full.png', fullPage: true });
 await page.locator('.featured-card .card-open').click();
-await page.waitForSelector('dialog[open] iframe');
-assert.match(await page.locator('dialog iframe').getAttribute('src'), /sample-work.pdf/);
-await page.keyboard.press('Escape'); assert.equal(await page.locator('dialog').isVisible(), false);
+await page.waitForSelector('.pdf-dialog[open] iframe');
+assert.match(await page.locator('.pdf-dialog iframe').getAttribute('src'), /sample-work.pdf/);
+await page.keyboard.press('Escape'); assert.equal(await page.locator('.pdf-dialog').isVisible(), false);
 assert.equal(await page.evaluate(() => document.activeElement.className), 'card-open');
 console.log('PASS gallery and PDF');
 await page.goto(`${base}/archive.html`); await page.waitForFunction(() => document.querySelectorAll('.winner-card').length === 11);
@@ -55,7 +55,7 @@ await page.goto(base + '/archive.html'); await page.locator('.winner-card').wait
 assert.equal(await page.locator('.card-title img').count(), 0);
 await page.waitForFunction(() => document.querySelector('.card-visual img').src.endsWith('profile-placeholder.svg'));
 await page.locator('.card-open').click(); await page.getByText('작품 공개를 준비하고 있습니다', { exact: true }).waitFor();
-assert.equal(await page.locator('dialog iframe').count(), 0); await page.keyboard.press('Escape');
+assert.equal(await page.locator('.pdf-dialog iframe').count(), 0); await page.keyboard.press('Escape');
 await page.unroute('**/assets/data/demo.json');
 await page.route('**/assets/js/config.js', route => route.fulfill({ contentType: 'text/javascript', body: "export const CONFIG={apiUrl:'',demoMode:false,edition:2026,requestTimeout:1000,autoScrollAfterIntro:true};" }));
 await page.goto(base); await page.getByText('수상작 포스터 공개를 준비하고 있습니다').waitFor();

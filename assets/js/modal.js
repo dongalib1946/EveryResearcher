@@ -1,6 +1,6 @@
 import { thumbnailSources } from './thumbnails.js?v=20261028-4';
 import { pdfPreview } from './data.js';
-import { el } from './ui.js?v=20261028-3';
+import { el } from './ui.js?v=20261104-1';
 
 export function createPdfModal() {
   const dialog = el('dialog', 'pdf-dialog');

@@ -21,14 +21,14 @@ for (const engine of [chromium, webkit]) {
         const close = page.getByRole('button', { name: '작품 창 닫기' });
         const box = await close.boundingBox();
         assert.ok(box.width >= 44 && box.height >= 44 && box.x >= 0 && box.x + box.width <= width);
-        assert.equal(await page.evaluate(() => { const b = document.querySelector('.close-modal'); const r = b.getBoundingClientRect(); return b.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)); }), true);
+        assert.equal(await page.evaluate(() => { const b = document.querySelector('.pdf-dialog .close-modal'); const r = b.getBoundingClientRect(); return b.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)); }), true);
         if (action === 'touch') await close.tap();
         if (action === 'click') await close.click();
-        assert.equal(await page.locator('dialog iframe').count(), 0);
+        assert.equal(await page.locator('.pdf-dialog iframe').count(), 0);
         if (action === 'back') await page.goBack();
         if (action === 'escape') await page.keyboard.press('Escape');
-        await page.waitForFunction(() => !document.querySelector('dialog').open && !document.body.classList.contains('modal-open') && !history.state?.researchPreview);
-        assert.equal(await page.locator('dialog iframe').count(), 0);
+        await page.waitForFunction(() => !document.querySelector('.pdf-dialog').open && !document.body.classList.contains('modal-open') && !history.state?.researchPreview);
+        assert.equal(await page.locator('.pdf-dialog iframe').count(), 0);
         await page.waitForFunction(y => Math.abs(scrollY-y)<=2, before);
       }
     }
@@ -43,7 +43,7 @@ for (const engine of [chromium, webkit]) {
   await page.goto(`${base}/archive.html`, { waitUntil: 'domcontentloaded' });
   for (let i = 0; i < 4; i++) {
     await page.locator('.card-open').first().tap();
-    assert.equal(await page.locator('dialog iframe').count(), 0);
+    assert.equal(await page.locator('.pdf-dialog iframe').count(), 0);
     await page.getByRole('button', { name: '작품 창 닫기' }).tap();
     await page.waitForFunction(() => !document.body.classList.contains('modal-open') && !history.state?.researchPreview);
   }
@@ -52,7 +52,7 @@ for (const engine of [chromium, webkit]) {
   await page.locator('.card-open').first().tap();
   await page.getByText('포스터를 불러오지 못했습니다.', { exact: false }).waitFor();
   await page.goBack();
-  await page.waitForFunction(() => !document.querySelector('dialog').open && !document.body.classList.contains('modal-open'));
+  await page.waitForFunction(() => !document.querySelector('.pdf-dialog').open && !document.body.classList.contains('modal-open'));
   console.log(`PASS ${engine.name()}: home/archive, 320/390/430px, long titles, touch/click/Escape/back, scroll restoration, delayed/failed loads and repeated closing`);
   await browser.close();
 }

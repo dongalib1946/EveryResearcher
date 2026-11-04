@@ -1,3 +1,4 @@
+import { initCeremonyVideo } from './ceremony.js?v=20261104-1';
 import './interactions.js';
 import { ARCHIVE_CATEGORIES } from './data.js';
 import { thumbnailSources } from './thumbnails.js';
@@ -40,6 +41,7 @@ export function initShell(current) {
   libraryLink.title = '동아대학교 도서관 바로가기';
   libraryLink.innerHTML = '<img src="./assets/images/library-logo-white.png" alt="" width="1000" height="160">';
   document.body.append(libraryLink);
+  initCeremonyVideo();
   const updateTopButton = () => { backToTop.hidden = window.scrollY < 300; };
   window.addEventListener('scroll', updateTopButton, { passive: true });
   updateTopButton();
