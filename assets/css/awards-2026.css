@@ -175,3 +175,8 @@ body.modal-open{position:fixed;top:var(--modal-scroll-top,0);left:0;right:0;widt
 .ceremony-player iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0}
 .ceremony-dialog .modal-header{position:sticky;top:0}
 @media(max-width:700px){.ceremony-shortcut{left:max(16px,env(safe-area-inset-left));bottom:calc(max(16px,env(safe-area-inset-bottom)) + 66px);width:131.078125px;font-size:11px;gap:5px;min-height:44px}.ceremony-dialog{width:96vw;max-width:96vw}.ceremony-dialog .modal-header h2{font-size:16px}}
+
+.ceremony-trophy{width:28px;height:28px;flex-shrink:0;border-radius:50%;object-fit:contain;background:#000}
+.ceremony-shortcut{padding:7px 8px;gap:6px}
+.ceremony-date{margin-top:7px;color:#906821;font-size:13px;font-weight:500}
+@media(max-width:700px){.ceremony-trophy{width:24px;height:24px}.ceremony-shortcut{gap:4px;padding:6px}.ceremony-date{font-size:12px}}

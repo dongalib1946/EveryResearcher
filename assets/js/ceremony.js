@@ -3,11 +3,11 @@ export function initCeremonyVideo() {
   trigger.type = 'button'; trigger.className = 'ceremony-shortcut';
   trigger.setAttribute('aria-haspopup', 'dialog');
   trigger.setAttribute('aria-controls', 'ceremony-dialog');
-  trigger.innerHTML = '<span class="ceremony-play" aria-hidden="true">▶</span><span>시상식 영상 보기</span>';
+  trigger.innerHTML = '<img class="ceremony-trophy" src="./assets/images/ceremony-trophy.png" alt="" width="28" height="28"><span>시상식 영상 보기</span>';
   const dialog = document.createElement('dialog');
   dialog.id = 'ceremony-dialog'; dialog.className = 'ceremony-dialog';
   dialog.setAttribute('aria-labelledby', 'ceremony-title');
-  dialog.innerHTML = `<header class="modal-header"><div><span class="eyebrow">AWARDS CEREMONY</span><h2 id="ceremony-title">누구나 연구자 시상식 영상</h2></div><button class="close-modal" type="button" aria-label="시상식 영상 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></header><div class="ceremony-player"></div><footer class="modal-footer"><p>재생되지 않으면 YouTube에서 시청해 주세요.</p><a class="pill-button" href="https://www.youtube.com/watch?v=6EDPt3yVd4E" target="_blank" rel="noopener noreferrer">YouTube에서 보기 ↗</a></footer>`;
+  dialog.innerHTML = `<header class="modal-header"><div><span class="eyebrow">AWARDS CEREMONY</span><h2 id="ceremony-title">누구나 연구자 시상식 영상</h2><p class="ceremony-date">시상일 · <time datetime="2026-11-02">2026년 11월 2일</time></p></div><button class="close-modal" type="button" aria-label="시상식 영상 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></header><div class="ceremony-player"></div><footer class="modal-footer"><p>재생되지 않으면 YouTube에서 시청해 주세요.</p><a class="pill-button" href="https://www.youtube.com/watch?v=6EDPt3yVd4E" target="_blank" rel="noopener noreferrer">YouTube에서 보기 ↗</a></footer>`;
   document.body.append(trigger, dialog);
   const player = dialog.querySelector('.ceremony-player');
   let scrollTop = 0, historyEntry = false, closing = false;

@@ -1,6 +1,6 @@
 import { ARCHIVE_CATEGORIES, loadWinners } from './data.js';
-import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261104-1';
-import { createPdfModal } from './modal.js?v=20261104-1';
+import { initShell, loading, errorState, demoNotice, winnerCard, el } from './ui.js?v=20261104-2';
+import { createPdfModal } from './modal.js?v=20261104-2';
 import { paginate, pageNumbers } from './pagination.js';
 
 initShell('archive'); const open = createPdfModal();

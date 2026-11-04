@@ -1,4 +1,4 @@
-import { initCeremonyVideo } from './ceremony.js?v=20261104-1';
+import { initCeremonyVideo } from './ceremony.js?v=20261104-2';
 import './interactions.js';
 import { ARCHIVE_CATEGORIES } from './data.js';
 import { thumbnailSources } from './thumbnails.js';
